@@ -1,6 +1,6 @@
 # crewai-serper-agent
 
-Security AI Agent built with dapr workflow
+Researcher AI Agent built with CrewAI workflow using NeMo Guardrails
 
 ### DEVELOPMENT
 
