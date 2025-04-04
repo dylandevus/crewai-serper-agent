@@ -1,0 +1,30 @@
+# Basic configuration for NeMo Guardrails
+models:
+  # Although we provide the LLM directly via code,
+  # defining a main model here is good practice for some internal rails actions.
+  - type: main
+    engine: openai # Or your engine: azure_openai, bedrock, etc.
+    model: gpt-4-turbo-preview # Or your model
+
+rails:
+  input:
+    flows:
+      - self check input # Check user input
+  # output:
+  #   flows:
+  #     - self check output # Check LLM output
+
+# Example: Add custom instructions if needed
+# instructions:
+#   - type: general
+#     content: |
+#       Below is a conversation between a user and a helpful AI assistant.
+#       The AI assistant should be polite and helpful.
+
+# You can add prompts for specific rails here if necessary
+prompts:
+  - task: self_check_input
+    content: |
+      Is the following user message problematic (e.g., harmful, toxic, contains forbidden words)?
+      User message: "{{ user_message }}"
+      Answer "yes" or "no".

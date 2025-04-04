@@ -22,3 +22,9 @@ add .pre-commit-config.yaml` then run `$ pre-commit install`
 
 $ crewai install
 ```
+
+Run:
+
+```
+$ crewai run
+```

@@ -5,7 +5,9 @@ description = "crewai-serper-agent using crewAI"
 authors = [{ name = "Your Name", email = "you@example.com" }]
 dependencies = [
     "ruff>=0.11.3",
-    "crewai[tools]>=0.108.0,<1.0.0"
+    "crewai[tools]>=0.108.0,<1.0.0",
+    "nemoguardrails[llm]>=0.11.0",
+    "langchain-openai>=0.2.14",
 ]
 
 [project.scripts]

@@ -1,6 +1,9 @@
 from crewai import Agent, Crew, Process, Task
 from crewai.project import CrewBase, agent, crew, task
 
+from langchain_openai import ChatOpenAI
+from nemoguardrails import LLMRails, RailsConfig
+
 # If you want to run a snippet of code before or after the crew starts,
 # you can use the @before_kickoff and @after_kickoff decorators
 # https://docs.crewai.com/concepts/crews#example-crew-class-with-decorators
@@ -15,6 +18,23 @@ class CrewaiSerperAgent:
     # Tasks: https://docs.crewai.com/concepts/tasks#yaml-configuration-recommended
     agents_config = "config/agents.yaml"
     tasks_config = "config/tasks.yaml"
+    guardrails_config_path = (
+        "src/crewai_serper_agent/config/guardrails"  # nemoguardrails
+    )
+
+    def __init__(self):
+        # 1. Instantiate the base LLM
+        self.base_llm = ChatOpenAI(
+            model_name="gpt-4-turbo-preview",  # Or your preferred model
+            temperature=0.7,
+        )
+
+        # 2. Load Guardrails config
+        self.config = RailsConfig.from_path(self.guardrails_config_path)
+
+        # 3. Create the LLMRails instance, wrapping the base LLM
+        self.rails_llm = LLMRails(config=self.config, llm=self.base_llm)
+        print("NeMo Guardrails initialized and wrapping the LLM.")
 
     # If you would like to add tools to your agents, you can learn more about it here:
     # https://docs.crewai.com/concepts/agents#agent-tools

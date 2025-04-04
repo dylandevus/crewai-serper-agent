@@ -1,0 +1,40 @@
+# Basic Colang file for input/output rails
+
+# --- Input Rails ---
+
+# Define forbidden topics or words
+define flow self check input
+  # Example: Block discussion about "politics"
+  if $user_message =~ "politics"
+    bot respond "I prefer not to discuss political topics."
+    stop
+
+  # Example: Block harmful language patterns (simple example)
+  if $user_message =~ "hate speech pattern" # Replace with actual patterns/checks
+     bot respond "Please use respectful language."
+     stop
+
+  # If input is okay, continue to the main LLM
+  else
+    # This implicitly allows the input to proceed
+    pass
+
+# --- Output Rails ---
+
+# Define checks for the LLM's generated response
+define flow self check output
+  # Example: Ensure politeness (simple check)
+  if $last_bot_message !~ /please|thank you|helpful|assist|can I help/ and $last_bot_message !~ /I cannot|I prefer not to/
+    # This is a very basic example; real politeness checks are more complex
+    # You might use another LLM call here for evaluation if needed.
+    # For simplicity, we'll just let it pass here, but you could re-prompt or modify.
+    pass # Or potentially: bot respond "Please remember to be polite." stop
+
+  # Example: Block specific unwanted phrases in output
+  if $last_bot_message =~ "undesired output phrase"
+    bot respond "I seem to have generated something inappropriate. Let me try again or rephrase."
+    stop # Prevents the original bad output from reaching the user
+
+  # If output is okay
+  else
+    pass # Allow the LLM's output
