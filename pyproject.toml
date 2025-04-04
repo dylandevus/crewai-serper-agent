@@ -1,9 +1,23 @@
 [project]
-name = "crewai-serper-agent"
+name = "crewai_serper_agent"
 version = "0.1.0"
-description = "Add your description here"
-readme = "README.md"
-requires-python = ">=3.13"
+description = "crewai-serper-agent using crewAI"
+authors = [{ name = "Your Name", email = "you@example.com" }]
 dependencies = [
     "ruff>=0.11.3",
+    "crewai[tools]>=0.108.0,<1.0.0"
 ]
+
+[project.scripts]
+crewai_serper_agent = "crewai_serper_agent.main:run"
+run_crew = "crewai_serper_agent.main:run"
+train = "crewai_serper_agent.main:train"
+replay = "crewai_serper_agent.main:replay"
+test = "crewai_serper_agent.main:test"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.crewai]
+type = "crew"

@@ -7,6 +7,7 @@ Security AI Agent built with dapr workflow
 Require:
 
 *   `uv venv --python 3.13`
+*   `uv tool install crewai`
 
 Install:
 
@@ -18,4 +19,6 @@ $ uv add ruff
 $ uv run ruff format
 $ uv run ruff check
 add .pre-commit-config.yaml` then run `$ pre-commit install`
+
+$ crewai install
 ```
